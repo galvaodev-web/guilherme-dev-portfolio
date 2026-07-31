@@ -1,0 +1,10 @@
+{
+  "description": "Showcases a programmer's skills, projects, and experience with a sleek, responsive landing page designed to attract job opportunities and connect with employers.",
+  "robots": {
+    "index": false
+  },
+  "accessibility": {
+    "addBypassLinks": false,
+    "ignoreReducedMotion": false
+  }
+}
