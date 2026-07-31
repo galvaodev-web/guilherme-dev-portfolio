@@ -1,16 +1,581 @@
 <!doctype html>
-<html lang="<!-- figma:lang -->">
+<html lang="en">
   <head>
     <!-- figma:head-start -->
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title><!-- figma:title --></title>
+    <title>Guilherme Dev Portfolio</title>
+    <meta
+      name="description"
+      content="Portfolio for Guilherme Dev, a backend-focused software engineer building scalable systems and developer tools."
+    />
+    <meta name="robots" content="index, follow" />
+    <meta property="og:title" content="Guilherme Dev Portfolio" />
+    <meta
+      property="og:description"
+      content="Backend-focused software engineer building scalable systems, data pipelines, and developer tools."
+    />
+    <style>
+      @import url("https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap");
+      @import url("https://fonts.googleapis.com/css2?family=Fraunces:ital,wght@0,600;0,700;1,600&display=swap");
+      @import url("https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500&display=swap");
+
+      :root {
+        color-scheme: light;
+        --bg: #ffffff;
+        --bg-alt: #f8fafc;
+        --navy: #0f172a;
+        --navy-mid: #1e3a8a;
+        --blue: #2563eb;
+        --blue-soft: #eff6ff;
+        --text: #0f172a;
+        --muted: #64748b;
+        --line: #e2e8f0;
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      html {
+        scroll-behavior: smooth;
+      }
+
+      body {
+        margin: 0;
+        background: var(--bg);
+        color: var(--text);
+        font-family: "Inter", system-ui, sans-serif;
+        -webkit-font-smoothing: antialiased;
+      }
+
+      a {
+        color: inherit;
+      }
+
+      .shell {
+        min-height: 100vh;
+      }
+
+      .topbar {
+        position: fixed;
+        inset: 0 0 auto;
+        z-index: 10;
+        border-bottom: 1px solid transparent;
+        transition: background 180ms ease, border-color 180ms ease;
+      }
+
+      .topbar.scrolled {
+        border-color: var(--line);
+        background: rgba(255, 255, 255, 0.94);
+        backdrop-filter: blur(12px);
+      }
+
+      .nav {
+        align-items: center;
+        display: flex;
+        height: 68px;
+        justify-content: space-between;
+        margin: 0 auto;
+        max-width: 1120px;
+        padding: 0 2rem;
+      }
+
+      .brand {
+        color: var(--navy);
+        font-family: "Fraunces", Georgia, serif;
+        font-size: 20px;
+        font-weight: 700;
+        text-decoration: none;
+      }
+
+      .links {
+        align-items: center;
+        display: flex;
+        gap: 2rem;
+      }
+
+      .links a {
+        color: var(--muted);
+        font-size: 14px;
+        font-weight: 500;
+        text-decoration: none;
+      }
+
+      .links .button {
+        background: var(--blue);
+        border-radius: 8px;
+        color: #ffffff;
+        font-weight: 600;
+        padding: 9px 22px;
+      }
+
+      .section {
+        padding: 120px 2rem;
+      }
+
+      .inner {
+        margin: 0 auto;
+        max-width: 1120px;
+      }
+
+      .hero {
+        align-items: center;
+        background: var(--navy);
+        color: #ffffff;
+        display: flex;
+        min-height: 100vh;
+        padding: 120px 2rem 80px;
+      }
+
+      .pill {
+        align-items: center;
+        background: rgba(30, 58, 138, 0.22);
+        border: 1px solid rgba(59, 130, 246, 0.2);
+        border-radius: 999px;
+        display: inline-flex;
+        gap: 8px;
+        margin-bottom: 40px;
+        padding: 6px 16px 6px 10px;
+      }
+
+      .dot {
+        background: #22c55e;
+        border-radius: 999px;
+        box-shadow: 0 0 6px #22c55e;
+        display: inline-block;
+        height: 7px;
+        width: 7px;
+      }
+
+      .mono {
+        font-family: "JetBrains Mono", monospace;
+        font-size: 11px;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+      }
+
+      h1,
+      h2 {
+        font-family: "Fraunces", Georgia, serif;
+        letter-spacing: 0;
+      }
+
+      h1 {
+        font-size: clamp(3.25rem, 8vw, 6.5rem);
+        line-height: 1.02;
+        margin: 0 0 1.5rem;
+        max-width: 840px;
+      }
+
+      h1 em {
+        color: #93c5fd;
+      }
+
+      h2 {
+        color: var(--navy);
+        font-size: clamp(2rem, 3.5vw, 2.75rem);
+        line-height: 1.15;
+        margin: 1rem 0 3rem;
+      }
+
+      .hero p {
+        color: #94a3b8;
+        font-size: clamp(1rem, 2vw, 1.2rem);
+        line-height: 1.7;
+        margin: 0 0 3rem;
+        max-width: 580px;
+      }
+
+      .actions {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 1rem;
+      }
+
+      .cta {
+        border-radius: 8px;
+        display: inline-flex;
+        font-size: 15px;
+        font-weight: 600;
+        padding: 14px 32px;
+        text-decoration: none;
+      }
+
+      .cta.primary {
+        background: var(--blue);
+        color: #ffffff;
+      }
+
+      .cta.secondary {
+        border: 1px solid #334155;
+        color: #cbd5e1;
+      }
+
+      .stats {
+        border-top: 1px solid #1e293b;
+        display: flex;
+        flex-wrap: wrap;
+        gap: 3rem;
+        margin-top: 80px;
+        padding-top: 48px;
+      }
+
+      .stat strong {
+        color: #ffffff;
+        display: block;
+        font-family: "Fraunces", Georgia, serif;
+        font-size: 32px;
+      }
+
+      .stat span {
+        color: #64748b;
+        font-size: 13px;
+      }
+
+      .alt {
+        background: var(--bg-alt);
+      }
+
+      .label {
+        align-items: center;
+        color: var(--blue);
+        display: flex;
+        gap: 10px;
+      }
+
+      .label::before {
+        background: var(--blue);
+        border-radius: 2px;
+        content: "";
+        height: 16px;
+        width: 3px;
+      }
+
+      .split {
+        display: grid;
+        gap: 5rem;
+        grid-template-columns: 1fr 1fr;
+        margin-top: 48px;
+      }
+
+      .copy {
+        color: var(--muted);
+        font-size: 16px;
+        line-height: 1.75;
+      }
+
+      .badges,
+      .tags {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 8px;
+      }
+
+      .badge,
+      .tag {
+        border-radius: 6px;
+        font-family: "JetBrains Mono", monospace;
+        font-size: 12px;
+        padding: 5px 12px;
+      }
+
+      .badge {
+        background: #ffffff;
+        border: 1px solid var(--line);
+        color: var(--muted);
+      }
+
+      .projects {
+        display: grid;
+        gap: 1.5rem;
+        grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      }
+
+      .card {
+        border: 1px solid var(--line);
+        border-radius: 12px;
+        display: flex;
+        flex-direction: column;
+        gap: 16px;
+        padding: 2rem;
+      }
+
+      .card h3 {
+        color: var(--navy);
+        font-size: 17px;
+        margin: 0 0 8px;
+      }
+
+      .card p {
+        color: var(--muted);
+        font-size: 14px;
+        line-height: 1.65;
+        margin: 0;
+      }
+
+      .tag {
+        background: var(--blue-soft);
+        border: 1px solid #bfdbfe;
+        color: var(--navy-mid);
+        font-size: 11px;
+        padding: 3px 9px;
+      }
+
+      .timeline {
+        border-bottom: 1px solid var(--line);
+        display: grid;
+        gap: 3rem;
+        grid-template-columns: 220px 1fr;
+        padding: 2.5rem 0;
+      }
+
+      .timeline:last-child {
+        border-bottom: 0;
+      }
+
+      .timeline h3 {
+        color: var(--navy);
+        font-size: 18px;
+        margin: 0 0 1rem;
+      }
+
+      .timeline ul {
+        color: var(--muted);
+        display: flex;
+        flex-direction: column;
+        font-size: 14px;
+        gap: 8px;
+        line-height: 1.65;
+        list-style: none;
+        margin: 0;
+        padding: 0;
+      }
+
+      .timeline li::before {
+        color: var(--blue);
+        content: "-";
+        margin-right: 12px;
+      }
+
+      .contact-list {
+        display: flex;
+        flex-direction: column;
+        gap: 14px;
+      }
+
+      .contact-list a {
+        color: var(--muted);
+        text-decoration: none;
+      }
+
+      form {
+        display: flex;
+        flex-direction: column;
+        gap: 16px;
+      }
+
+      input,
+      textarea {
+        border: 1px solid var(--line);
+        border-radius: 8px;
+        color: var(--text);
+        font: 15px "Inter", system-ui, sans-serif;
+        padding: 12px 14px;
+        width: 100%;
+      }
+
+      textarea {
+        min-height: 140px;
+        resize: vertical;
+      }
+
+      button {
+        align-self: flex-start;
+        background: var(--blue);
+        border: 0;
+        border-radius: 8px;
+        color: #ffffff;
+        cursor: pointer;
+        font: 600 15px "Inter", system-ui, sans-serif;
+        padding: 14px 28px;
+      }
+
+      footer {
+        background: var(--navy);
+        color: #64748b;
+        display: flex;
+        justify-content: center;
+        padding: 2rem;
+      }
+
+      @media (max-width: 760px) {
+        .nav {
+          padding: 0 1rem;
+        }
+
+        .links a:not(.button) {
+          display: none;
+        }
+
+        .section,
+        .hero {
+          padding-left: 1rem;
+          padding-right: 1rem;
+        }
+
+        .split,
+        .timeline {
+          gap: 2rem;
+          grid-template-columns: 1fr;
+        }
+      }
+    </style>
     <!-- figma:head-end -->
   </head>
   <body>
     <!-- figma:body-start -->
     <div id="root"></div>
-    <script type="module" src="/src/main.tsx"></script>
+    <script type="module">
+      const isStaticHost =
+        location.hostname.endsWith("github.io") || location.protocol === "file:";
+
+      if (!isStaticHost) {
+        import("/src/main.tsx");
+      } else {
+        const root = document.getElementById("root");
+        root.innerHTML = `
+          <main class="shell">
+            <header class="topbar" id="topbar">
+              <nav class="nav">
+                <a class="brand" href="#">Guilherme Dev</a>
+                <div class="links">
+                  <a href="#about">About</a>
+                  <a href="#projects">Projects</a>
+                  <a href="#experience">Experience</a>
+                  <a href="#contact">Contact</a>
+                  <a class="button" href="#contact">Hire Me</a>
+                </div>
+              </nav>
+            </header>
+
+            <section class="hero">
+              <div class="inner">
+                <div class="pill">
+                  <span class="dot"></span>
+                  <span class="mono">Open to opportunities</span>
+                </div>
+                <h1>Building systems <em>that scale</em> with your ambition.</h1>
+                <p>Backend-focused engineer building distributed systems, data pipelines, and developer tooling for products that need to be fast, reliable, and easy to evolve.</p>
+                <div class="actions">
+                  <a class="cta primary" href="#projects">View My Work</a>
+                  <a class="cta secondary" href="#contact">Get In Touch</a>
+                </div>
+                <div class="stats">
+                  <div class="stat"><strong>6+</strong><span>Years Experience</span></div>
+                  <div class="stat"><strong>50M+</strong><span>Daily Requests Served</span></div>
+                  <div class="stat"><strong>3</strong><span>Startups Scaled</span></div>
+                  <div class="stat"><strong>12</strong><span>Open Source Projects</span></div>
+                </div>
+              </div>
+            </section>
+
+            <section class="section alt" id="about">
+              <div class="inner">
+                <div class="label mono">About Me</div>
+                <div class="split">
+                  <div>
+                    <h2>I make slow things fast and complex things simple.</h2>
+                    <p class="copy">I specialize in backend systems and infrastructure: the kind of work that becomes invisible when it is done well. I ship production systems that handle serious traffic and stay understandable for the teams that maintain them.</p>
+                    <p class="copy">I am looking for senior IC or tech lead roles where I can do deep technical work on hard problems with a thoughtful team.</p>
+                  </div>
+                  <div>
+                    <p class="mono" style="color:#94a3b8">Core Skills</p>
+                    <div class="badges">
+                      <span class="badge">TypeScript</span><span class="badge">React</span><span class="badge">Node.js</span><span class="badge">Go</span><span class="badge">PostgreSQL</span><span class="badge">Redis</span><span class="badge">Docker</span><span class="badge">Kubernetes</span><span class="badge">AWS</span><span class="badge">GraphQL</span><span class="badge">Rust</span><span class="badge">Next.js</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </section>
+
+            <section class="section" id="projects">
+              <div class="inner">
+                <div class="label mono">Featured Projects</div>
+                <h2>Selected Work</h2>
+                <div class="projects">
+                  <article class="card">
+                    <h3>Helix - Real-time Collaboration Engine</h3>
+                    <p>A multiplayer editing engine for structured documents with conflict resolution for high-concurrency teams.</p>
+                    <div class="tags"><span class="tag">Go</span><span class="tag">WebSockets</span><span class="tag">Redis</span><span class="tag">React</span></div>
+                  </article>
+                  <article class="card">
+                    <h3>Orbit - Distributed Task Queue</h3>
+                    <p>A durable job processing system with fan-out patterns, priority queues, and dead-letter handling.</p>
+                    <div class="tags"><span class="tag">TypeScript</span><span class="tag">Node.js</span><span class="tag">PostgreSQL</span><span class="tag">Docker</span></div>
+                  </article>
+                  <article class="card">
+                    <h3>Lens - Query Observability Platform</h3>
+                    <p>Profiles slow queries across distributed Postgres clusters and surfaces optimization suggestions.</p>
+                    <div class="tags"><span class="tag">Rust</span><span class="tag">Next.js</span><span class="tag">ClickHouse</span><span class="tag">Kubernetes</span></div>
+                  </article>
+                </div>
+              </div>
+            </section>
+
+            <section class="section alt" id="experience">
+              <div class="inner">
+                <div class="label mono">Experience</div>
+                <h2>Where I Have Worked</h2>
+                <div class="timeline">
+                  <div><div class="mono" style="color:#94a3b8">2022 - Present</div><p class="copy">Meridian Systems</p></div>
+                  <div><h3>Senior Software Engineer</h3><ul><li>Reduced p99 data pipeline latency from 4.2s to 340ms.</li><li>Designed a multi-tenant RBAC system used across product lines.</li><li>Mentored engineers and established an RFC-driven design process.</li></ul></div>
+                </div>
+                <div class="timeline">
+                  <div><div class="mono" style="color:#94a3b8">2019 - 2022</div><p class="copy">Vantage Cloud</p></div>
+                  <div><h3>Software Engineer</h3><ul><li>Built an ingestion layer handling millions of events per day.</li><li>Migrated a monolith to service-oriented infrastructure without downtime.</li><li>Shipped real-time anomaly detection for customer workflows.</li></ul></div>
+                </div>
+              </div>
+            </section>
+
+            <section class="section" id="contact">
+              <div class="inner">
+                <div class="label mono">Contact</div>
+                <div class="split">
+                  <div>
+                    <h2>Let's build something together.</h2>
+                    <p class="copy">I am actively interviewing for senior backend and platform roles. If you have something interesting, I would love to hear from you.</p>
+                    <div class="contact-list">
+                      <a href="https://github.com/galvaodev-web">github.com/galvaodev-web</a>
+                      <a href="https://linkedin.com">linkedin.com/in/guilherme-dev</a>
+                      <a href="mailto:guilherme@example.com">guilherme@example.com</a>
+                    </div>
+                  </div>
+                  <form id="contact-form">
+                    <label><span class="mono">Name</span><input required placeholder="Jane Smith"></label>
+                    <label><span class="mono">Email</span><input required type="email" placeholder="jane@company.com"></label>
+                    <label><span class="mono">Message</span><textarea required placeholder="Tell me about the role or project..."></textarea></label>
+                    <button type="submit">Send Message</button>
+                  </form>
+                </div>
+              </div>
+            </section>
+
+            <footer><span class="mono">Built with React + Vite</span></footer>
+          </main>
+        `;
+
+        const topbar = document.getElementById("topbar");
+        const onScroll = () => topbar.classList.toggle("scrolled", window.scrollY > 48);
+        onScroll();
+        window.addEventListener("scroll", onScroll, { passive: true });
+        document.getElementById("contact-form").addEventListener("submit", (event) => {
+          event.preventDefault();
+          event.currentTarget.outerHTML =
+            '<div class="card"><div class="mono" style="color:#16a34a">Message sent</div><p class="copy">Thanks for reaching out. I will respond within 24 hours.</p></div>';
+        });
+      }
+    </script>
     <!-- figma:body-end -->
   </body>
 </html>
